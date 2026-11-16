@@ -1,0 +1,15 @@
+#tagh1{
+  color: aqua;
+}
+
+header,Footer{
+  height: 10vh;
+  background-color: aquamarine;
+}
+
+#home,#about,#contact{
+  height: 80vh;
+  background-color: bisque;
+}
+
+
