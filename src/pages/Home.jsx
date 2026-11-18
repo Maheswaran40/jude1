@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom"
 import products from "../json/data"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import Mycontext from "../context/Mycontext"
 
 function Home() {
+
+  let {a,b,count} = useContext(Mycontext)
 
   let[quantity,setQuantity] = useState(Array(products.length).fill(0))
   let navigate = useNavigate()
@@ -56,7 +59,8 @@ console.log("without use effect");
           ))}
         </div>
       </div>
-
+          {count}
+          <span>{a}{b}</span>
     </div>
   )
 }

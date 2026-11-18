@@ -7,13 +7,14 @@ import Header from "./common_Comp/Header"
 import Footer from "./common_Comp/Footer"
 import Product from "./pages/Product"
 import UseState from "./pages/UseState"
-
+import MycontextProvider from "./context/MycontextProvider"
 function App() {
   return (
     <>
 
 
     <BrowserRouter>
+    <MycontextProvider>
     <Header/>
     <Routes>
       <Route path="/" element={<Home/>}/>
@@ -24,6 +25,7 @@ function App() {
       <Route path="*" element={<Error/>}/>
     </Routes>
     <Footer/>
+    </MycontextProvider>
     </BrowserRouter>
 
 
