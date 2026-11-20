@@ -4,8 +4,11 @@ function TODO() {
     let [input, setInput] = useState("")
     let [list, setList] = useState([])
 
-    let[viewModal,setViewModal]=useState(false)
-    let[modalInput,setModalInput]=useState("")
+    let [viewModal, setViewModal] = useState(false)
+    let [modalInput, setModalInput] = useState("")
+
+    let [edit, setEdit] = useState("")
+    let [editText, setEditText] = useState("")
 
     console.log(list, input);
 
@@ -13,14 +16,31 @@ function TODO() {
         e.preventDefault()
         setList(list.concat(input))
         setInput("")
-
     }
 
 
-    function shoeModal(index){
+    function shoeModal(index) {
         setViewModal(true)
-        setModalInput(list.find((v,i)=>i == index))
+        setModalInput(list.find((v, i) => i == index))
     }
+    function editFun(index) {
+        setEdit(index)
+        setEditText(list[index])
+    }
+
+
+    function editInputFun(e) {
+        setEditText(e.target.value)
+    }
+
+    function updateFun() {
+        setList(list.map((value, index) => (edit === index ? editText : value)));
+        setEdit("");
+    }
+    const deleteFun = (index) => {
+        setList(list.filter((value, i) => i !== index));
+    };
+
     return (
         <>
 
@@ -43,11 +63,14 @@ function TODO() {
                     <tbody>
                         {list.map((v, i) => (
                             <tr key={i}>
-                                <td>{v}</td>
+                                <td>{edit === i ? <input type="text" value={editText} onChange={editInputFun} /> : v}</td>
                                 <td className="d-flex justify-content-between">
-                                    <button className="btn btn-info" onClick={()=>shoeModal(i)}>view</button>
-                                    <button className="btn btn-warning">Edit</button>
-                                    <button className="btn btn-danger">Delete</button>
+                                    <button className="btn btn-info" onClick={() => shoeModal(i)}>view</button>
+                                    {edit === i ? <button className="btn btn-warning" onClick={updateFun}>update</button> :
+                                        <button className="btn btn-warning" onClick={() => editFun(i)}>Edit</button>}
+
+
+                                    <button className="btn btn-danger" onClick={() => deleteFun(i)}>Delete</button>
                                 </td>
                             </tr>
                         ))}
@@ -64,7 +87,7 @@ function TODO() {
                             <button
                                 type="button"
                                 className="btn-close"
-                                onClick={()=>setViewModal(false)}
+                                onClick={() => setViewModal(false)}
                             ></button>
                         </div>
 
@@ -75,7 +98,7 @@ function TODO() {
                 </div>
             </div>}
 
-            
+
 
         </>
     )
